@@ -306,14 +306,14 @@ create_dtw_matrix <- function(series, window_size = 0, trace = FALSE) {
       # Compute DTW distance
       if (window_size == 0) {
         dist <- dtw::dtw(series[[i]], series[[j]], 
-                        step.pattern = dtw::symmetric2)$distance
+                        step.pattern = dtw::symmetric2)$normalizedDistance
       } else {
         effective_window <- min(window_size, 
                               abs(length(series[[i]]) - length(series[[j]])))
         dist <- dtw::dtw(series[[i]], series[[j]],
                         step.pattern = dtw::symmetric2,
                         window.type = "sakoechiba",
-                        window.size = effective_window)$distance
+                        window.size = effective_window)$normalizedDistance
       }
       
       dist_matrix[i, j] <- dist
